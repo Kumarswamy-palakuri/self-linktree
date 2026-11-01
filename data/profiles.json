@@ -1,0 +1,63 @@
+{
+  "profiles": [
+    {
+      "id": "p1",
+      "name": "Aditya Ranjan Sir",
+      "bio": "Excise Inspector / Maths Expert",
+      "slug": "aditya-ranjan",
+      "avatar": "",
+      "theme": {
+        "bg": "#252d2f",
+        "card": "#ffffff",
+        "text": "#f8fafb",
+        "showCta": true,
+        "newTab": true
+      },
+      "links": [
+        {
+          "id": "l2",
+          "title": "@AdityaRanjanTalks",
+          "url": "https://www.youtube.com/",
+          "icon": "youtube",
+          "clicks": 0
+        },
+        {
+          "id": "l3",
+          "title": "aditya____ranjan (Instagram)",
+          "url": "https://www.instagram.com/",
+          "icon": "instagram",
+          "clicks": 0
+        },
+        {
+          "id": "l4",
+          "title": "Aditya Ranjan (Facebook)",
+          "url": "https://www.facebook.com/",
+          "icon": "facebook",
+          "clicks": 0
+        },
+        {
+          "id": "l5",
+          "title": "Vidyagram✅ (WhatsApp Channel)",
+          "url": "https://whatsapp.com/",
+          "icon": "whatsapp",
+          "clicks": 0
+        },
+        {
+          "id": "l6",
+          "title": "Vidyagram 🇮🇳 (Telegram)",
+          "url": "https://telegram.org/",
+          "icon": "telegram",
+          "clicks": 0
+        },
+        {
+          "id": "l7",
+          "title": "Aditya Ranjan 🇮🇳 (Twitter)",
+          "url": "https://x.com/",
+          "icon": "x",
+          "clicks": 0
+        }
+      ],
+      "views": 2
+    }
+  ]
+}
