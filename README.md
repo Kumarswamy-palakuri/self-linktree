@@ -24,6 +24,8 @@ Optional variables:
 
 After setting the variables, trigger a Netlify deploy so the function receives them. Use the configured username and password in the deployed admin panel. Do not put the GitHub token in frontend files or share it in chat.
 
+Open `https://your-site.netlify.app/admin` to go directly to the admin sign-in page. The admin shortcut on the public page also remains available.
+
 ## Features
 - Multiple profile pages managed in one browser
 - Profile name, bio, image and slug editor
