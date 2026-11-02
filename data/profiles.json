@@ -55,6 +55,14 @@
           "url": "https://x.com/ajay_tips",
           "icon": "x",
           "clicks": 0
+        },
+        {
+          "id": "l1793589995030",
+          "title": "Insta-post gen",
+          "url": "https://insta-post-gen.netlify.app/",
+          "icon": "website",
+
+          "clicks": 0
         }
       ],
       "views": 0
