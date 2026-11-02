@@ -13,15 +13,7 @@
         "showCta": true,
         "newTab": true
       },
-      "links": [
-        {
-          "id": "l7",
-          "title": "Aditya Ranjan 🇮🇳 (Twitter)",
-          "url": "https://x.com/",
-          "icon": "x",
-          "clicks": 0
-        }
-      ],
+      "links": [],
       "views": 2
     }
   ]
