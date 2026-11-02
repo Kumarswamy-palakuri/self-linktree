@@ -2,12 +2,12 @@
   "profiles": [
     {
       "id": "p1",
-      "name": "Aditya Ranjan Sir",
-      "bio": "Excise Inspector / Maths Expert",
-      "slug": "aditya-ranjan",
+      "name": "Ajay Sir",
+      "bio": "Quantitative Aptitude & Reasoning Expert | Ajaytips",
+      "slug": "ajaytips",
       "avatar": "",
       "theme": {
-        "bg": "#252d2f",
+        "bg": "#121a24",
         "card": "#ffffff",
         "text": "#f8fafb",
         "showCta": true,
@@ -15,28 +15,49 @@
       },
       "links": [
         {
-          "id": "l5",
-          "title": "Vidyagram✅ (WhatsApp Channel)",
-          "url": "https://whatsapp.com/",
+          "id": "l1",
+          "title": "Ajaytips (@ajaytips0806)",
+          "url": "https://www.youtube.com/@ajaytips0806",
+          "icon": "youtube",
+          "clicks": 0
+        },
+        {
+          "id": "l2",
+          "title": "Ajaytips App (Google Play Store)",
+          "url": "https://play.google.com/store/apps/details?id=com.diy18.ajaytips",
+          "icon": "playstore",
+          "clicks": 0
+        },
+        {
+          "id": "l3",
+          "title": "Ajaytips Official (WhatsApp Channel)",
+          "url": "https://whatsapp.com/channel/0029Vajra07KGGGDcCB23G1G",
           "icon": "whatsapp",
           "clicks": 0
         },
         {
-          "id": "l6",
-          "title": "Vidyagram 🇮🇳 (Telegram)",
-          "url": "https://telegram.org/",
+          "id": "l4",
+          "title": "@ajay_tips (Instagram)",
+          "url": "https://www.instagram.com/ajay_tips",
+          "icon": "instagram",
+          "clicks": 0
+        },
+        {
+          "id": "l5",
+          "title": "Ajaytips (Telegram Channel)",
+          "url": "https://t.me/ajaytips",
           "icon": "telegram",
           "clicks": 0
         },
         {
-          "id": "l7",
-          "title": "Aditya Ranjan 🇮🇳 (Twitter)",
-          "url": "https://x.com/",
+          "id": "l6",
+          "title": "Ajay Sir (X / Twitter)",
+          "url": "https://x.com/ajay_tips",
           "icon": "x",
           "clicks": 0
         }
       ],
-      "views": 2
+      "views": 0
     }
   ]
 }

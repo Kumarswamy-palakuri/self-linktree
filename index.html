@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#252d2f"><title>LinkSpace</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#121a24">
+<title>Ajay Sir | Ajaytips</title>
+<meta name="description" content="Official Linktree of Ajay Sir (Ajaytips) - Quantitative Aptitude & Reasoning Expert. Official channels for YouTube, Mobile App, Telegram, WhatsApp and Instagram.">
+<meta property="og:title" content="Ajay Sir | Ajaytips">
+<meta property="og:description" content="Official links for Ajay Sir (Ajaytips) - Quantitative Aptitude & Reasoning Expert.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -15,21 +22,28 @@
 
 <main id="publicPage" class="profile-shell">
   <div class="profile-header">
-    <div class="avatar-wrap"><img id="profileAvatar" alt="Profile photo"><div id="avatarFallback" class="avatar-fallback">AJ</div></div>
-    <h1 id="profileName">Your Name</h1><p id="profileBio">Your designation</p>
+    <div class="avatar-wrap">
+      <img id="profileAvatar" alt="Ajay Sir profile photo">
+      <div id="avatarFallback" class="avatar-fallback">AJ</div>
+    </div>
+    <h1 id="profileName">Ajay Sir</h1>
+    <p id="profileBio">Quantitative Aptitude &amp; Reasoning Expert | Ajaytips</p>
   </div>
   <section id="publicLinks" class="links-list" aria-label="Profile links"></section>
   <footer class="profile-footer">
-    <p class="footer-links">Cookie Preferences · Report · Privacy</p>
-    <p class="footer-links">Explore · About this account · More</p>
-    <p class="copyright">Powered by LinkSpace</p>
+    <p class="footer-links">Quantitative Aptitude · Pure Maths · Reasoning</p>
+    <p class="footer-links">YouTube · Ajaytips App · WhatsApp · Telegram</p>
+    <p class="copyright">Ajaytips · Official Links</p>
   </footer>
 </main>
 
 <main id="adminPage" class="admin-screen hidden">
   <header class="admin-topbar">
-    <div><p class="eyebrow">LINKSPACE CONTROL PANEL</p><h1>Dashboard</h1></div>
-    <div class="admin-top-actions"><button class="btn btn-ghost" id="viewProfileButton">View profile</button><button class="btn btn-ghost" id="logoutButton">Log out</button></div>
+    <div><p class="eyebrow">AJAYTIPS CONTROL PANEL</p><h1>Dashboard</h1></div>
+    <div class="admin-top-actions">
+      <button class="btn btn-ghost" id="viewProfileButton">View profile</button>
+      <button class="btn btn-ghost" id="logoutButton">Log out</button>
+    </div>
   </header>
   <div class="admin-layout">
     <aside class="admin-sidebar">
@@ -42,35 +56,61 @@
     </aside>
     <section class="admin-content">
       <section class="admin-tab" id="overviewTab">
-        <div class="section-heading"><div><p class="eyebrow">PERFORMANCE</p><h2>Overview</h2></div><span id="activeProfileLabel" class="status-pill">Active profile</span></div>
+        <div class="section-heading">
+          <div><p class="eyebrow">PERFORMANCE</p><h2>Overview</h2></div>
+          <span id="activeProfileLabel" class="status-pill">Active profile</span>
+        </div>
         <div class="stats-grid">
           <article class="stat-card"><span>Profile views</span><strong id="viewsCount">0</strong><small>On this browser</small></article>
           <article class="stat-card"><span>Link clicks</span><strong id="clicksCount">0</strong><small>Tracked locally</small></article>
           <article class="stat-card"><span>Active links</span><strong id="activeLinksCount">0</strong><small>On this profile</small></article>
         </div>
-        <div class="panel"><div class="section-heading compact"><h3>Link performance</h3><span class="muted">Click count</span></div><div id="analyticsList" class="analytics-list"></div></div>
+        <div class="panel">
+          <div class="section-heading compact"><h3>Link performance</h3><span class="muted">Click count</span></div>
+          <div id="analyticsList" class="analytics-list"></div>
+        </div>
         <p class="helper-note">Analytics are stored in this browser only. They are not cross-device or server analytics.</p>
       </section>
 
       <section class="admin-tab hidden" id="profilesTab">
-        <div class="section-heading"><div><p class="eyebrow">MULTI-PROFILE WORKSPACE</p><h2>Manage profiles</h2></div><button class="btn btn-primary" id="addProfileButton">＋ New profile</button></div>
+        <div class="section-heading">
+          <div><p class="eyebrow">MULTI-PROFILE WORKSPACE</p><h2>Manage profiles</h2></div>
+          <button class="btn btn-primary" id="addProfileButton">＋ New profile</button>
+        </div>
         <div id="profilesList" class="profiles-list"></div>
       </section>
 
       <section class="admin-tab hidden" id="profileTab">
-        <div class="section-heading"><div><p class="eyebrow">YOUR IDENTITY</p><h2>Edit profile</h2></div><span class="status-pill">Saved in browser</span></div>
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR IDENTITY</p><h2>Edit profile</h2></div>
+          <span class="status-pill">Saved in browser</span>
+        </div>
         <form id="profileForm" class="panel form-grid">
-          <div class="photo-editor"><img id="adminAvatarPreview" alt="Profile preview"><div><label class="field-label" for="avatarUpload">Profile photo</label><input type="file" id="avatarUpload" accept="image/*"><small>Square image recommended. Maximum 2 MB.</small></div></div>
+          <div class="photo-editor">
+            <img id="adminAvatarPreview" alt="Profile preview">
+            <div>
+              <label class="field-label" for="avatarUpload">Profile photo</label>
+              <input type="file" id="avatarUpload" accept="image/*">
+              <small>Square image recommended. Maximum 2 MB.</small>
+            </div>
+          </div>
           <label class="field full">Display name<input id="nameInput" maxlength="60" required></label>
           <label class="field full">Bio / designation<input id="bioInput" maxlength="100"></label>
-          <label class="field full">Profile URL slug<div class="slug-input"><span>?p=</span><input id="slugInput" maxlength="35" pattern="[a-z0-9-]+" required></div><small>Use lowercase letters, numbers and hyphens.</small></label>
+          <label class="field full">Profile URL slug
+            <div class="slug-input"><span>?p=</span><input id="slugInput" maxlength="35" pattern="[a-z0-9-]+" required></div>
+            <small>Use lowercase letters, numbers and hyphens.</small>
+          </label>
           <div class="form-actions full"><button class="btn btn-primary" type="submit">Save profile</button></div>
         </form>
       </section>
 
       <section class="admin-tab hidden" id="linksTab">
-        <div class="section-heading"><div><p class="eyebrow">YOUR DESTINATIONS</p><h2>Manage links</h2></div><button class="btn btn-primary" id="addLinkButton">＋ Add link</button></div>
-        <div id="adminLinksList" class="manage-list"></div><p class="helper-note">Use the arrows to change link order. Use complete https:// URLs.</p>
+        <div class="section-heading">
+          <div><p class="eyebrow">YOUR DESTINATIONS</p><h2>Manage links</h2></div>
+          <button class="btn btn-primary" id="addLinkButton">＋ Add link</button>
+        </div>
+        <div id="adminLinksList" class="manage-list"></div>
+        <p class="helper-note">Use the arrows to change link order. Use complete https:// URLs.</p>
       </section>
 
       <section class="admin-tab hidden" id="appearanceTab">
@@ -79,14 +119,28 @@
           <label class="field">Page background<input type="color" id="bgInput"></label>
           <label class="field">Card background<input type="color" id="cardInput"></label>
           <label class="field">Text color<input type="color" id="textInput"></label>
-          <label class="toggle-row"><span><strong>Open social links in new tab</strong><small>Recommended for external destinations.</small></span><input type="checkbox" id="newTabInput"></label>
-          <div class="form-actions"><button class="btn btn-primary" id="saveAppearanceButton">Save appearance</button><button class="btn btn-danger-outline" id="resetThemeButton">Reset theme</button></div>
+          <label class="toggle-row">
+            <span><strong>Open social links in new tab</strong><small>Recommended for external destinations.</small></span>
+            <input type="checkbox" id="newTabInput">
+          </label>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="saveAppearanceButton">Save appearance</button>
+            <button class="btn btn-danger-outline" id="resetThemeButton">Reset theme</button>
+          </div>
         </div>
       </section>
 
       <section class="admin-tab hidden" id="qrTab">
         <div class="section-heading"><div><p class="eyebrow">SHARE YOUR PAGE</p><h2>Profile QR code</h2></div></div>
-        <div class="panel qr-panel"><div id="qrcode" class="qr-canvas"></div><div><h3 id="qrProfileName">Your profile</h3><p class="muted" id="qrProfileUrl"></p><button class="btn btn-primary" id="downloadQrButton">Download QR code</button><button class="btn btn-secondary" id="copyProfileUrlButton">Copy profile URL</button></div></div>
+        <div class="panel qr-panel">
+          <div id="qrcode" class="qr-canvas"></div>
+          <div>
+            <h3 id="qrProfileName">Your profile</h3>
+            <p class="muted" id="qrProfileUrl"></p>
+            <button class="btn btn-primary" id="downloadQrButton">Download QR code</button>
+            <button class="btn btn-secondary" id="copyProfileUrlButton">Copy profile URL</button>
+          </div>
+        </div>
         <p class="helper-note">The QR code points to this page URL with the selected profile slug. Publish the site to make it accessible to others.</p>
       </section>
     </section>
@@ -95,29 +149,48 @@
 
 <dialog id="loginDialog" class="modal">
   <form method="dialog" class="modal-close-row"><button class="close-button" aria-label="Close">×</button></form>
-  <p class="eyebrow">ADMIN ACCESS</p><h2>Welcome back</h2><p class="modal-copy">Sign in to manage your LinkSpace profiles.</p>
+  <p class="eyebrow">ADMIN ACCESS</p>
+  <h2>Welcome back</h2>
+  <p class="modal-copy">Sign in to manage your Ajaytips profiles.</p>
   <form id="loginForm" class="login-form">
     <label class="field">Username<input id="usernameInput" autocomplete="username" required value="admin"></label>
     <label class="field">Password<input id="passwordInput" type="password" autocomplete="current-password" required placeholder="Enter password"></label>
-    <p id="loginError" class="error-text hidden">Incorrect username or password.</p><button class="btn btn-primary full" type="submit">Sign in</button>
-  </form><p class="demo-credentials">Local preview: <strong>admin</strong> / <strong>admin123</strong>. Netlify uses the admin credentials configured in its environment.</p>
+    <p id="loginError" class="error-text hidden">Incorrect username or password.</p>
+    <button class="btn btn-primary full" type="submit">Sign in</button>
+  </form>
+  <p class="demo-credentials">Local preview: <strong>admin</strong> / <strong>admin123</strong>. Netlify uses the admin credentials configured in its environment.</p>
 </dialog>
 
 <dialog id="linkDialog" class="modal">
   <form method="dialog" class="modal-close-row"><button class="close-button" aria-label="Close">×</button></form>
-  <p class="eyebrow">LINK EDITOR</p><h2 id="linkDialogTitle">Add a link</h2>
+  <p class="eyebrow">LINK EDITOR</p>
+  <h2 id="linkDialogTitle">Add a link</h2>
   <form id="linkForm" class="login-form">
     <input type="hidden" id="editLinkId">
     <label class="field">Link title<input id="linkTitleInput" required maxlength="60"></label>
     <label class="field">URL<input id="linkUrlInput" required type="url" placeholder="https://example.com"></label>
-    <label class="field">Platform<select id="linkIconInput"><option value="instagram">Instagram</option><option value="youtube">YouTube</option><option value="facebook">Facebook</option><option value="whatsapp">WhatsApp</option><option value="telegram">Telegram</option><option value="x">X / Twitter</option><option value="website">Website</option><option value="graduation">Education</option><option value="custom">Other</option></select></label>
+    <label class="field">Platform
+      <select id="linkIconInput">
+        <option value="youtube">YouTube</option>
+        <option value="playstore">Play Store / App</option>
+        <option value="whatsapp">WhatsApp</option>
+        <option value="telegram">Telegram</option>
+        <option value="instagram">Instagram</option>
+        <option value="x">X / Twitter</option>
+        <option value="facebook">Facebook</option>
+        <option value="website">Website</option>
+        <option value="graduation">Education</option>
+        <option value="custom">Other</option>
+      </select>
+    </label>
     <button class="btn btn-primary full" type="submit">Save link</button>
   </form>
 </dialog>
 
 <dialog id="profileDialog" class="modal">
   <form method="dialog" class="modal-close-row"><button class="close-button" aria-label="Close">×</button></form>
-  <p class="eyebrow">NEW PROFILE</p><h2>Create profile</h2>
+  <p class="eyebrow">NEW PROFILE</p>
+  <h2>Create profile</h2>
   <form id="newProfileForm" class="login-form">
     <label class="field">Display name<input id="newProfileName" required maxlength="60" placeholder="Your name"></label>
     <label class="field">Bio / designation<input id="newProfileBio" maxlength="100" placeholder="Your title"></label>
@@ -128,4 +201,5 @@
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="app.js"></script>
-</body></html>
+</body>
+</html>

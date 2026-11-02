@@ -68,7 +68,7 @@ async function saveFile(config, data) {
   else if (current.status !== 404) throw new Error(`GitHub read failed (${current.status})`);
 
   const body = {
-    message: "Update LinkSpace profiles from admin",
+    message: "Update Ajaytips profiles from admin",
     content: Buffer.from(JSON.stringify(data, null, 2), "utf8").toString("base64"),
     branch: config.branch,
   };
