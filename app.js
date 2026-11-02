@@ -1,5 +1,5 @@
 const KEY="ajaytips-v1-data";
-const DEFAULT={profiles:[{id:"p1",name:"Ajay Sir",bio:"Quantitative Aptitude & Reasoning Expert | Ajaytips",slug:"ajaytips",avatar:"",theme:{bg:"#121a24",card:"#ffffff",text:"#f8fafb",showCta:true,newTab:true},links:[
+const DEFAULT={profiles:[{id:"p1",name:"Ajay Sir",bio:"Quantitative Aptitude & Reasoning Expert | Ajaytips",slug:"ajaytips",avatar:"photos/avatar.png",theme:{bg:"#121a24",card:"#ffffff",text:"#f8fafb",showCta:true,newTab:true},links:[
 {id:"l1",title:"Ajaytips (@ajaytips0806)",url:"https://www.youtube.com/@ajaytips0806",icon:"youtube",clicks:0},
 {id:"l2",title:"Ajaytips App (Google Play Store)",url:"https://play.google.com/store/apps/details?id=com.diy18.ajaytips",icon:"playstore",clicks:0},
 {id:"l3",title:"Ajaytips Official (WhatsApp Channel)",url:"https://whatsapp.com/channel/0029Vajra07KGGGDcCB23G1G",icon:"whatsapp",clicks:0},
@@ -17,7 +17,10 @@ function load(){
   try{
     const x=JSON.parse(localStorage.getItem(KEY));
     if(x?.profiles?.length&&x.profiles.some(p=>p.slug==="ajaytips"||(p.name&&p.name.toLowerCase().includes("ajay")))){
-      x.profiles.forEach(p=>{if(!p.slides)p.slides=structuredClone(DEFAULT.profiles[0].slides)});
+      x.profiles.forEach(p=>{
+        if(!p.slides)p.slides=structuredClone(DEFAULT.profiles[0].slides);
+        if(!p.avatar||p.avatar.startsWith("data:"))p.avatar="photos/avatar.png";
+      });
       return x;
     }
   }catch(e){}
