@@ -57,7 +57,36 @@
           "clicks": 0
         }
       ],
-      "views": 0
+      "views": 0,
+      "slides": [
+        {
+          "id": "s1",
+          "image": "",
+          "badge": "QUANTITATIVE APTITUDE",
+          "title": "Ajay Sir Quantitative Classes",
+          "text": "Comprehensive classes, concept building & shortcut methods for competitive exams.",
+          "url": "https://www.youtube.com/@ajaytips0806",
+          "gradient": "blue"
+        },
+        {
+          "id": "s2",
+          "image": "",
+          "badge": "OFFICIAL APP",
+          "title": "Ajaytips Mobile App",
+          "text": "Download our official app for live practice tests, formula sheets & courses.",
+          "url": "https://play.google.com/store/apps/details?id=com.diy18.ajaytips",
+          "gradient": "green"
+        },
+        {
+          "id": "s3",
+          "image": "",
+          "badge": "COMMUNITY",
+          "title": "WhatsApp & Telegram Community",
+          "text": "Get daily practice questions, free notes & fast notifications directly on your phone.",
+          "url": "https://whatsapp.com/channel/0029Vajra07KGGGDcCB23G1G",
+          "gradient": "purple"
+        }
+      ]
     }
   ]
 }

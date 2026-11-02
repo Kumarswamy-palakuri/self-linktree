@@ -37,7 +37,7 @@ button {
   right: 16px;
   display: flex;
   justify-content: space-between;
-  max-width: 760px;
+  max-width: 860px;
   margin: auto;
   z-index: 2;
 }
@@ -62,14 +62,15 @@ button {
 }
 
 .profile-shell {
-  width: min(100% - 32px, 560px);
+  width: min(100% - 32px, 860px);
   margin: auto;
   padding: 85px 0 32px;
 }
 
 .profile-header {
+  max-width: 580px;
+  margin: 0 auto 24px;
   text-align: center;
-  margin-bottom: 24px;
 }
 
 .avatar-wrap {
@@ -165,35 +166,224 @@ button {
   display: block;
 }
 
+/* Image Carousel Container & Spacing */
+.carousel-section {
+  max-width: 720px;
+  margin: 18px auto 26px;
+  width: 100%;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  background: #182232;
+  aspect-ratio: 16 / 8.5;
+  min-height: 160px;
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.carousel-card {
+  width: 100%;
+  height: 100%;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.slide-1, .slide-gradient-blue {
+  background: linear-gradient(135deg, #1e3a8a 0%, #0284c7 100%);
+}
+
+.slide-2, .slide-gradient-green {
+  background: linear-gradient(135deg, #065f46 0%, #059669 50%, #10b981 100%);
+}
+
+.slide-3, .slide-gradient-purple {
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 50%, #8b5cf6 100%);
+}
+
+.slide-gradient-dark {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+}
+
+.slide-gradient-orange {
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #f97316 100%);
+}
+
+.carousel-slide-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.carousel-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 60%, transparent 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-sizing: border-box;
+}
+
+.slide-badge {
+  display: inline-block;
+  align-self: flex-start;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.22);
+  margin-bottom: 8px;
+  backdrop-filter: blur(4px);
+}
+
+.carousel-card h3 {
+  margin: 0 0 6px;
+  font-size: clamp(16px, 4vw, 20px);
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.carousel-card p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.18s;
+  z-index: 2;
+  backdrop-filter: blur(4px);
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.75);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-btn.prev {
+  left: 8px;
+}
+
+.carousel-btn.next {
+  right: 8px;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 2;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 0;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: width 0.2s, background 0.2s, border-radius 0.2s;
+}
+
+.carousel-dot.active {
+  width: 20px;
+  border-radius: 4px;
+  background: white;
+}
+
+/* Rectangular Link Boxes - Responsive Grid */
 .links-list {
   display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 in a row on wide/desktop screens */
   gap: 12px;
+  width: 100%;
 }
 
 .social-card {
-  min-height: 54px;
-  border-radius: 12px;
+  min-height: 52px;
+  border-radius: 4px; /* Crisp rectangle box */
   background: var(--card);
   color: var(--ink);
   display: grid;
-  grid-template-columns: 40px 1fr 24px;
+  grid-template-columns: 38px 1fr 18px;
   align-items: center;
-  gap: 12px;
-  padding: 8px 16px;
+  gap: 10px;
+  padding: 8px 14px;
   text-decoration: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
-  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  overflow: hidden;
 }
 
 .social-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.26);
+  border-color: rgba(56, 189, 248, 0.45);
 }
 
 .social-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  border-radius: 4px; /* Matching rectangular badge */
   display: grid;
   place-items: center;
   color: white;
@@ -204,6 +394,16 @@ button {
   width: 20px;
   height: 20px;
   display: block;
+}
+
+.social-title {
+  text-align: center;
+  font-size: 13.5px;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.2px;
+  overflow-wrap: break-word;
+  word-break: normal;
 }
 
 .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
@@ -608,6 +808,48 @@ button {
   object-fit: cover;
 }
 
+.manage-thumb {
+  width: 58px;
+  height: 38px;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #202b33;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  font-size: 15px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.manage-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.slide-preview-wrap {
+  margin: 4px 0 12px;
+  width: 100%;
+  max-width: 320px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #0f172a;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+.slide-preview-wrap img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
 .manage-meta {
   min-width: 0;
 }
@@ -791,9 +1033,26 @@ button {
   transform: translate(-50%, 0);
 }
 
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .profile-shell {
-    padding-top: 100px;
+    width: min(100% - 24px, 640px);
+    padding-top: 80px;
+  }
+  .links-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 in a row on tablets and mobile */
+    gap: 11px;
+  }
+  .social-card {
+    grid-template-columns: 36px 1fr 16px;
+    padding: 8px 12px;
+    gap: 8px;
+  }
+  .social-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .social-title {
+    font-size: 13px;
   }
   .admin-screen {
     padding-top: 28px;
@@ -804,7 +1063,8 @@ button {
   }
   .admin-sidebar {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(85px, 1fr));
+    gap: 6px;
   }
   .side-link {
     text-align: center;
@@ -851,28 +1111,63 @@ button {
   }
 }
 
-@media (max-width: 390px) {
+@media (max-width: 480px) {
+  .profile-shell {
+    width: calc(100% - 20px);
+    padding-top: 70px;
+  }
+  .links-list {
+    grid-template-columns: repeat(2, 1fr); /* 2 in a row on phones */
+    gap: 8px;
+  }
   .social-card {
-    grid-template-columns: 36px 1fr 18px;
-    padding: 7px 12px;
+    grid-template-columns: 32px 1fr;
+    padding: 7px 10px;
+    gap: 8px;
     min-height: 48px;
-    gap: 10px;
+    border-radius: 4px;
+  }
+  .more-dots {
+    display: none;
   }
   .social-icon {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
   }
   .social-icon svg {
     width: 17px;
     height: 17px;
   }
   .social-title {
-    font-size: 13.5px;
+    font-size: 12px;
+    line-height: 1.25;
   }
   .profile-header p {
-    font-size: 14.5px;
+    font-size: 14px;
   }
   .profile-footer {
-    padding-top: 22px;
+    padding-top: 20px;
+  }
+  .carousel-card {
+    padding: 14px 16px;
+  }
+  .carousel-card h3 {
+    font-size: 15px;
+  }
+  .carousel-card p {
+    font-size: 11.5px;
+  }
+}
+
+@media (max-width: 330px) {
+  .links-list {
+    grid-template-columns: 1fr; /* 1 in a row for ultra-narrow phones */
+  }
+  .more-dots {
+    display: block;
+  }
+  .social-card {
+    grid-template-columns: 32px 1fr 16px;
   }
 }

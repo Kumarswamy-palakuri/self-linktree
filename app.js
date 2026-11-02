@@ -6,13 +6,20 @@ const DEFAULT={profiles:[{id:"p1",name:"Ajay Sir",bio:"Quantitative Aptitude & R
 {id:"l4",title:"@ajay_tips (Instagram)",url:"https://www.instagram.com/ajay_tips",icon:"instagram",clicks:0},
 {id:"l5",title:"Ajaytips (Telegram Channel)",url:"https://t.me/ajaytips",icon:"telegram",clicks:0},
 {id:"l6",title:"Ajay Sir (X / Twitter)",url:"https://x.com/ajay_tips",icon:"x",clicks:0}
+],slides:[
+{id:"s1",image:"",badge:"QUANTITATIVE APTITUDE",title:"Ajay Sir Quantitative Classes",text:"Comprehensive classes, concept building & shortcut methods for competitive exams.",url:"https://www.youtube.com/@ajaytips0806",gradient:"blue"},
+{id:"s2",image:"",badge:"OFFICIAL APP",title:"Ajaytips Mobile App",text:"Download our official app for live practice tests, formula sheets & courses.",url:"https://play.google.com/store/apps/details?id=com.diy18.ajaytips",gradient:"green"},
+{id:"s3",image:"",badge:"COMMUNITY",title:"WhatsApp & Telegram Channel",text:"Get daily practice questions, free notes & fast notifications directly on your phone.",url:"https://whatsapp.com/channel/0029Vajra07KGGGDcCB23G1G",gradient:"purple"}
 ],views:0}]};
 let state=load(),activeId=state.profiles[0]?.id,tab="overviewTab",adminCredentials=null,localRevision=0,syncQueue=Promise.resolve();
 const $=id=>document.getElementById(id);
 function load(){
   try{
     const x=JSON.parse(localStorage.getItem(KEY));
-    if(x?.profiles?.length&&x.profiles.some(p=>p.slug==="ajaytips"||(p.name&&p.name.toLowerCase().includes("ajay"))))return x;
+    if(x?.profiles?.length&&x.profiles.some(p=>p.slug==="ajaytips"||(p.name&&p.name.toLowerCase().includes("ajay")))){
+      x.profiles.forEach(p=>{if(!p.slides)p.slides=structuredClone(DEFAULT.profiles[0].slides)});
+      return x;
+    }
   }catch(e){}
   return structuredClone(DEFAULT);
 }
@@ -113,6 +120,37 @@ function renderPublic(){
     }).join("");
   }
 
+  const slides=p.slides||[];
+  const carouselSec=$("carouselSection");
+  if(carouselSec){
+    if(slides.length===0){
+      carouselSec.style.display="none";
+    }else{
+      carouselSec.style.display="";
+      const track=$("carouselTrack");
+      if(track){
+        track.innerHTML=slides.map(s=>{
+          let inner="";
+          if(s.image){
+            let hasMeta=Boolean(s.badge||s.title||s.text);
+            inner=`<img src="${esc(s.image)}" alt="${esc(s.title||'Slide banner')}">${hasMeta?`<div class="carousel-card-overlay">${s.badge?`<span class="slide-badge">${esc(s.badge)}</span>`:""}${s.title?`<h3>${esc(s.title)}</h3>`:""}${s.text?`<p>${esc(s.text)}</p>`:""}</div>`:""}`;
+          }else{
+            inner=`<div class="carousel-card slide-gradient-${esc(s.gradient||'blue')}">${s.badge?`<span class="slide-badge">${esc(s.badge)}</span>`:""}${s.title?`<h3>${esc(s.title)}</h3>`:""}${s.text?`<p>${esc(s.text)}</p>`:""}</div>`;
+          }
+          if(s.url&&validUrl(s.url)!=="#"){
+            inner=`<a class="carousel-slide-link" href="${esc(validUrl(s.url))}" target="${p.theme.newTab?"_blank":"_self"}" ${p.theme.newTab?'rel="noopener noreferrer"':""}>${inner}</a>`;
+          }
+          return `<div class="carousel-slide">${inner}</div>`;
+        }).join("");
+      }
+      const dots=$("carouselDots");
+      if(dots){
+        dots.innerHTML=slides.map((_,i)=>`<button class="carousel-dot ${i===0?'active':''}" aria-label="Slide ${i+1}" data-index="${i}" type="button"></button>`).join("");
+      }
+      initCarousel();
+    }
+  }
+
   $("publicLinks").innerHTML=p.links.map(l=>{
     let [sym,cls]=icons[l.icon]||icons.custom;
     return `<a class="social-card" href="${esc(validUrl(l.url))}" target="${p.theme.newTab?"_blank":"_self"}" ${p.theme.newTab?'rel="noopener noreferrer"':""} data-link="${esc(l.id)}"><span class="social-icon ${cls}">${sym}</span><span class="social-title">${esc(l.title)}</span><span class="more-dots">⋮</span></a>`;
@@ -140,6 +178,16 @@ function renderAdmin(){
     let [sym]=icons[l.icon]||icons.custom;
     return `<article class="manage-item"><span class="manage-icon">${sym}</span><div class="manage-meta"><strong>${esc(l.title)}</strong><small>${esc(l.url)}</small></div><div class="item-actions"><button class="mini-btn" data-act="up" data-id="${l.id}" ${i===0?"disabled":""}>↑</button><button class="mini-btn" data-act="down" data-id="${l.id}" ${i===p.links.length-1?"disabled":""}>↓</button><button class="mini-btn" data-act="edit" data-id="${l.id}">✎</button><button class="mini-btn delete" data-act="delete" data-id="${l.id}">×</button></div></article>`;
   }).join("")||"<div class='panel'>No links yet. Add your first link.</div>";
+  const slides=p.slides||[];
+  if($("adminCarouselList")){
+    $("adminCarouselList").innerHTML=slides.map((s,i)=>{
+      let thumbContent=s.image?`<img src="${esc(s.image)}" alt="">`:`▣`;
+      let thumbClass=s.image?"manage-thumb":`manage-thumb slide-gradient-${esc(s.gradient||'blue')}`;
+      let title=s.title||(s.image?"Image Banner":"Slide "+(i+1));
+      let subtitle=s.url||s.text||s.badge||"No link";
+      return `<article class="manage-item"><div class="${thumbClass}">${thumbContent}</div><div class="manage-meta"><strong>${esc(title)}</strong><small>${esc(subtitle)}</small></div><div class="item-actions"><button class="mini-btn" data-slide-act="up" data-id="${s.id}" ${i===0?"disabled":""}>↑</button><button class="mini-btn" data-slide-act="down" data-id="${s.id}" ${i===slides.length-1?"disabled":""}>↓</button><button class="mini-btn" data-slide-act="edit" data-id="${s.id}">✎</button><button class="mini-btn delete" data-slide-act="delete" data-id="${s.id}">×</button></div></article>`;
+    }).join("")||"<div class='panel'>No carousel slides yet. Click ＋ Add slide to create your first slide or banner.</div>";
+  }
   $("profilesList").innerHTML=state.profiles.map(pr=>`<article class="profile-item"><span class="profile-avatar-mini">${pr.avatar?`<img src="${pr.avatar}" alt="">`:initials(pr.name)}</span><div class="profile-meta"><strong>${esc(pr.name)} ${pr.id===activeId?"· Active":""}</strong><small>?p=${esc(pr.slug)} · ${pr.links.length} links</small></div><div class="item-actions"><button class="mini-btn" data-profile-act="switch" data-id="${pr.id}" title="Open profile">↗</button><button class="mini-btn" data-profile-act="edit" data-id="${pr.id}" title="Edit">✎</button>${state.profiles.length>1?`<button class="mini-btn delete" data-profile-act="delete" data-id="${pr.id}" title="Delete">×</button>`:""}</div></article>`).join("");
   renderQr();
 }
@@ -260,13 +308,151 @@ $("adminLinksList").onclick=e=>{
   if(a==="down"&&i<p.links.length-1)[p.links[i+1],p.links[i]]=[p.links[i],p.links[i+1]];
   persist(true);
 };
+let currentSlideImage="";
+function editSlide(s){
+  $("slideForm").reset();
+  $("editSlideId").value=s?.id||"";
+  currentSlideImage=s?.image||"";
+  $("slideImageUrlInput").value=(s?.image&&!s.image.startsWith("data:"))?s.image:"";
+  $("slideTitleInput").value=s?.title||"";
+  $("slideBadgeInput").value=s?.badge||"";
+  $("slideTextInput").value=s?.text||"";
+  $("slideUrlInput").value=s?.url||"";
+  $("slideGradientInput").value=s?.gradient||"blue";
+  $("slideDialogTitle").textContent=s?"Edit slide":"Add a slide";
+
+  if(currentSlideImage){
+    $("slideImagePreview").src=currentSlideImage;
+    $("slideImagePreviewWrap").classList.remove("hidden");
+  }else{
+    $("slideImagePreview").src="";
+    $("slideImagePreviewWrap").classList.add("hidden");
+  }
+  $("slideDialog").showModal();
+}
+if($("addSlideButton"))$("addSlideButton").onclick=()=>editSlide(null);
+if($("slideImageUpload")){
+  $("slideImageUpload").onchange=e=>{
+    let f=e.target.files?.[0];
+    if(!f)return;
+    if(!f.type.startsWith("image/"))return toast("Choose an image file");
+    let r=new FileReader();
+    r.onload=()=>{
+      let img=new Image();
+      img.onload=()=>{
+        let maxW=960,maxH=540;
+        let w=img.width,h=img.height;
+        if(w>maxW||h>maxH){
+          let ratio=Math.min(maxW/w,maxH/h);
+          w=Math.round(w*ratio);
+          h=Math.round(h*ratio);
+        }
+        let canvas=document.createElement("canvas");
+        canvas.width=w;
+        canvas.height=h;
+        let ctx=canvas.getContext("2d");
+        ctx.drawImage(img,0,0,w,h);
+        currentSlideImage=canvas.toDataURL("image/jpeg",0.85);
+        $("slideImagePreview").src=currentSlideImage;
+        $("slideImagePreviewWrap").classList.remove("hidden");
+        $("slideImageUrlInput").value="";
+      };
+      img.onerror=()=>{
+        currentSlideImage=r.result;
+        $("slideImagePreview").src=currentSlideImage;
+        $("slideImagePreviewWrap").classList.remove("hidden");
+        $("slideImageUrlInput").value="";
+      };
+      img.src=r.result;
+    };
+    r.readAsDataURL(f);
+  };
+}
+if($("removeSlideImageBtn")){
+  $("removeSlideImageBtn").onclick=()=>{
+    currentSlideImage="";
+    $("slideImageUpload").value="";
+    $("slideImageUrlInput").value="";
+    $("slideImagePreview").src="";
+    $("slideImagePreviewWrap").classList.add("hidden");
+  };
+}
+if($("slideImageUrlInput")){
+  $("slideImageUrlInput").oninput=()=>{
+    let val=$("slideImageUrlInput").value.trim();
+    if(val){
+      currentSlideImage=val;
+      $("slideImagePreview").src=val;
+      $("slideImagePreviewWrap").classList.remove("hidden");
+    }else if(!currentSlideImage.startsWith("data:")){
+      currentSlideImage="";
+      $("slideImagePreview").src="";
+      $("slideImagePreviewWrap").classList.add("hidden");
+    }
+  };
+}
+if($("slideForm")){
+  $("slideForm").onsubmit=e=>{
+    e.preventDefault();
+    let p=active();
+    if(!p.slides)p.slides=[];
+    let id=$("editSlideId").value;
+    let imgVal=currentSlideImage||$("slideImageUrlInput").value.trim();
+    let title=$("slideTitleInput").value.trim();
+    let badge=$("slideBadgeInput").value.trim();
+    let text=$("slideTextInput").value.trim();
+    let url=$("slideUrlInput").value.trim();
+    let gradient=$("slideGradientInput").value||"blue";
+
+    if(!imgVal&&!title&&!badge&&!text){
+      return toast("Provide an image banner or text/heading");
+    }
+    if(url&&validUrl(url)==="#"){
+      return toast("Enter a valid http/https URL");
+    }
+
+    let slide={
+      id:id||"s"+Date.now(),
+      image:imgVal,
+      title,
+      badge,
+      text,
+      url,
+      gradient
+    };
+
+    if(id)p.slides=p.slides.map(s=>s.id===id?slide:s);
+    else p.slides.push(slide);
+
+    $("slideDialog").close();
+    persist(true);
+    toast(id?"Slide updated":"Slide added");
+  };
+}
+if($("adminCarouselList")){
+  $("adminCarouselList").onclick=e=>{
+    let b=e.target.closest("button[data-slide-act]");
+    if(!b)return;
+    let p=active();
+    if(!p.slides)p.slides=[];
+    let i=p.slides.findIndex(s=>s.id===b.dataset.id),a=b.dataset.slideAct;
+    if(i<0)return;
+    if(a==="edit")return editSlide(p.slides[i]);
+    if(a==="delete"){
+      if(confirm("Delete this slide?"))p.slides.splice(i,1);
+    }
+    if(a==="up"&&i>0)[p.slides[i-1],p.slides[i]]=[p.slides[i],p.slides[i-1]];
+    if(a==="down"&&i<p.slides.length-1)[p.slides[i+1],p.slides[i]]=[p.slides[i],p.slides[i+1]];
+    persist(true);
+  };
+}
 $("addProfileButton").onclick=()=>$("profileDialog").showModal();
 $("newProfileForm").onsubmit=e=>{
   e.preventDefault();
   let name=$("newProfileName").value.trim(),slug=slugify($("newProfileSlug").value);
   if(!slug)return toast("Enter a valid slug");
   if(state.profiles.some(p=>p.slug===slug))return toast("Slug already exists");
-  let p={id:"p"+Date.now(),name,bio:$("newProfileBio").value.trim(),slug,avatar:"",views:0,theme:{bg:"#121a24",card:"#ffffff",text:"#f8fafb",showCta:true,newTab:true},links:[]};
+  let p={id:"p"+Date.now(),name,bio:$("newProfileBio").value.trim(),slug,avatar:"",views:0,theme:{bg:"#121a24",card:"#ffffff",text:"#f8fafb",showCta:true,newTab:true},links:[],slides:structuredClone(DEFAULT.profiles[0].slides)};
   state.profiles.push(p);
   activeId=p.id;
   $("profileDialog").close();
@@ -318,11 +504,81 @@ $("downloadQrButton").onclick=()=>{
   a.download=active().slug+"-qr.png";
   a.click();
 };
+let carouselTimer=null;
+function initCarousel(){
+  if(carouselTimer){clearInterval(carouselTimer);carouselTimer=null;}
+  const track=$("carouselTrack");
+  const slides=document.querySelectorAll(".carousel-slide");
+  const dots=document.querySelectorAll(".carousel-dot");
+  const prevBtn=$("carouselPrev");
+  const nextBtn=$("carouselNext");
+  const container=$("carouselContainer");
+  if(!track||slides.length===0){
+    if(prevBtn)prevBtn.style.display="none";
+    if(nextBtn)nextBtn.style.display="none";
+    return;
+  }
+  if(slides.length<=1){
+    if(prevBtn)prevBtn.style.display="none";
+    if(nextBtn)nextBtn.style.display="none";
+  }else{
+    if(prevBtn)prevBtn.style.display="grid";
+    if(nextBtn)nextBtn.style.display="grid";
+  }
+
+  let current=0;
+  function goTo(index){
+    if(index<0)index=slides.length-1;
+    if(index>=slides.length)index=0;
+    current=index;
+    track.style.transform=`translateX(-${current*100}%)`;
+    dots.forEach((d,i)=>d.classList.toggle("active",i===current));
+  }
+  goTo(0);
+
+  function startAuto(){
+    stopAuto();
+    if(slides.length>1){
+      carouselTimer=setInterval(()=>goTo(current+1),4200);
+    }
+  }
+  function stopAuto(){
+    if(carouselTimer){clearInterval(carouselTimer);carouselTimer=null;}
+  }
+
+  if(prevBtn)prevBtn.onclick=()=>{goTo(current-1);startAuto();};
+  if(nextBtn)nextBtn.onclick=()=>{goTo(current+1);startAuto();};
+  dots.forEach(dot=>{
+    dot.onclick=()=>{
+      const idx=parseInt(dot.dataset.index,10);
+      if(!isNaN(idx)){goTo(idx);startAuto();}
+    };
+  });
+
+  let startX=0;
+  track.ontouchstart=e=>{startX=e.touches[0].clientX;stopAuto();};
+  track.ontouchend=e=>{
+    const diff=startX-e.changedTouches[0].clientX;
+    if(Math.abs(diff)>35){
+      if(diff>0)goTo(current+1);
+      else goTo(current-1);
+    }
+    startAuto();
+  };
+
+  if(container){
+    container.onmouseenter=stopAuto;
+    container.onmouseleave=startAuto;
+  }
+  startAuto();
+}
+
 (async function init(){
   const adminRoute=location.pathname.replace(/\/+$/,"")==="/admin",slug=new URLSearchParams(location.search).get("p"),revision=localRevision;
   let match=state.profiles.find(p=>p.slug===slug || (slug==="ajay-sir" && p.slug==="ajaytips"));
   if(match)activeId=match.id;
   renderPublic();
+  initCarousel();
   if(adminRoute)$("loginDialog").showModal();
   try{
     let remote=null;
@@ -338,6 +594,7 @@ $("downloadQrButton").onclick=()=>{
     }
     if(remote?.profiles?.length && revision===localRevision){
       state=remote;
+      state.profiles.forEach(p=>{if(!p.slides)p.slides=structuredClone(DEFAULT.profiles[0].slides)});
       localStorage.setItem(KEY,JSON.stringify(state));
       activeId=state.profiles.find(p=>p.slug===slug || (slug==="ajay-sir" && p.slug==="ajaytips"))?.id||state.profiles[0].id;
       renderPublic();

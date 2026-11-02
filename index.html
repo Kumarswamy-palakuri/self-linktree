@@ -28,8 +28,47 @@
     </div>
     <h1 id="profileName">Ajay Sir</h1>
     <p id="profileBio">Quantitative Aptitude &amp; Reasoning Expert | Ajaytips</p>
-    <!-- <div id="headerSocials" class="header-socials" aria-label="Social media quick links"></div> -->
   </div>
+
+  <!-- Space & Container for Image Carousel -->
+  <section id="carouselSection" class="carousel-section" aria-label="Featured Image Carousel">
+    <div class="carousel-container" id="carouselContainer">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Slide 1: Drop <img> or customize banner -->
+        <div class="carousel-slide">
+          <div class="carousel-card slide-1">
+            <span class="slide-badge">FEATURED</span>
+            <h3>Quantitative Aptitude &amp; Reasoning</h3>
+            <p>Comprehensive classes, shortcut methods &amp; exam PYQs.</p>
+          </div>
+        </div>
+        <!-- Slide 2: Drop <img> or customize banner -->
+        <div class="carousel-slide">
+          <div class="carousel-card slide-2">
+            <span class="slide-badge">LEARNING APP</span>
+            <h3>Download Ajaytips Android App</h3>
+            <p>Daily live classes, formula PDFs &amp; mock test series.</p>
+          </div>
+        </div>
+        <!-- Slide 3: Drop <img> or customize banner -->
+        <div class="carousel-slide">
+          <div class="carousel-card slide-3">
+            <span class="slide-badge">COMMUNITY</span>
+            <h3>Join WhatsApp &amp; Telegram</h3>
+            <p>Instant exam notifications &amp; daily study materials.</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-btn prev" id="carouselPrev" aria-label="Previous slide" type="button">‹</button>
+      <button class="carousel-btn next" id="carouselNext" aria-label="Next slide" type="button">›</button>
+      <div class="carousel-dots" id="carouselDots">
+        <button class="carousel-dot active" aria-label="Slide 1" data-index="0" type="button"></button>
+        <button class="carousel-dot" aria-label="Slide 2" data-index="1" type="button"></button>
+        <button class="carousel-dot" aria-label="Slide 3" data-index="2" type="button"></button>
+      </div>
+    </div>
+  </section>
+
   <section id="publicLinks" class="links-list" aria-label="Profile links"></section>
   <footer class="profile-footer">
     <p class="footer-links">Quantitative Aptitude · Pure Maths · Reasoning</p>
@@ -52,6 +91,7 @@
       <button class="side-link" data-tab="profilesTab">◉ Profiles</button>
       <button class="side-link" data-tab="profileTab">✎ Edit profile</button>
       <button class="side-link" data-tab="linksTab">↗ Links</button>
+      <button class="side-link" data-tab="carouselTab">▣ Carousel</button>
       <button class="side-link" data-tab="appearanceTab">◐ Appearance</button>
       <button class="side-link" data-tab="qrTab">▣ QR code</button>
     </aside>
@@ -116,6 +156,15 @@
         </div>
         <div id="adminLinksList" class="manage-list"></div>
         <p class="helper-note">Use the arrows to change link order. Use complete https:// URLs.</p>
+      </section>
+
+      <section class="admin-tab hidden" id="carouselTab">
+        <div class="section-heading">
+          <div><p class="eyebrow">IMAGE &amp; BANNER SLIDESHOW</p><h2>Manage carousel</h2></div>
+          <button class="btn btn-primary" id="addSlideButton">＋ Add slide</button>
+        </div>
+        <div id="adminCarouselList" class="manage-list"></div>
+        <p class="helper-note">Add banner images, posters, or announcement slides. Use arrows to change slide order. If no slides are added, the carousel remains hidden.</p>
       </section>
 
       <section class="admin-tab hidden" id="appearanceTab">
@@ -191,6 +240,49 @@
       </select>
     </label>
     <button class="btn btn-primary full" type="submit">Save link</button>
+  </form>
+</dialog>
+
+<dialog id="slideDialog" class="modal">
+  <form method="dialog" class="modal-close-row"><button class="close-button" aria-label="Close">×</button></form>
+  <p class="eyebrow">CAROUSEL SLIDE EDITOR</p>
+  <h2 id="slideDialogTitle">Add a slide</h2>
+  <form id="slideForm" class="login-form">
+    <input type="hidden" id="editSlideId">
+
+    <label class="field">Slide banner / photo
+      <input type="file" id="slideImageUpload" accept="image/*">
+      <small>Upload any banner, poster, or class thumbnail.</small>
+    </label>
+    <div id="slideImagePreviewWrap" class="slide-preview-wrap hidden">
+      <img id="slideImagePreview" src="" alt="Slide preview">
+      <button type="button" class="btn btn-ghost" id="removeSlideImageBtn" style="margin-top:6px;padding:4px 10px;font-size:11px;color:#ff9696;">Remove image</button>
+    </div>
+    <label class="field">Or Image URL
+      <input id="slideImageUrlInput" type="url" placeholder="https://example.com/banner.jpg">
+    </label>
+    <label class="field">Title / heading (optional)
+      <input id="slideTitleInput" maxlength="60" placeholder="e.g. Quantitative Aptitude Masterclass">
+    </label>
+    <label class="field">Badge / tag (optional)
+      <input id="slideBadgeInput" maxlength="25" placeholder="e.g. LIVE BATCH / FEATURED">
+    </label>
+    <label class="field">Subtitle / description (optional)
+      <input id="slideTextInput" maxlength="120" placeholder="e.g. Concept building &amp; shortcut methods">
+    </label>
+    <label class="field">Click URL (optional link destination)
+      <input id="slideUrlInput" type="url" placeholder="https://youtube.com/... or app link">
+    </label>
+    <label class="field">Gradient background (if no image)
+      <select id="slideGradientInput">
+        <option value="blue">Deep Blue (Aptitude &amp; Concepts)</option>
+        <option value="green">Emerald Green (Ajaytips App)</option>
+        <option value="purple">Royal Purple (Study Community)</option>
+        <option value="dark">Charcoal Dark (Exam Schedule)</option>
+        <option value="orange">Sunset Flame (Hot Announcement)</option>
+      </select>
+    </label>
+    <button class="btn btn-primary full" type="submit">Save slide</button>
   </form>
 </dialog>
 
