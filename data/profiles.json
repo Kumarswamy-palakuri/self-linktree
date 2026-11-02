@@ -13,7 +13,15 @@
         "showCta": true,
         "newTab": true
       },
-      "links": [],
+      "links": [
+        {
+          "id": "l1793589995030",
+          "title": "Insta-post gen",
+          "url": "https://insta-post-gen.netlify.app/",
+          "icon": "website",
+          "clicks": 0
+        }
+      ],
       "views": 2
     }
   ]
