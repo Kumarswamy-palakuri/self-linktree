@@ -274,6 +274,22 @@ button {
   box-sizing: border-box;
 }
 
+.carousel-card-overlay h3 {
+  margin: 0;
+  font-size: clamp(15px, 3.8vw, 19px);
+  font-weight: 800;
+  line-height: 1.25;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-card-overlay p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.35;
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
 .slide-badge {
   display: inline-block;
   align-self: flex-start;
@@ -1049,6 +1065,22 @@ button {
   .profile-shell {
     width: min(100% - 24px, 640px);
     padding-top: 36px;
+  }
+  /* On mobile: if slide has an image, only show Title / heading */
+  .carousel-card-overlay {
+    padding: 10px 14px 12px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.35) 70%, transparent 100%);
+  }
+  .carousel-card-overlay .slide-badge,
+  .carousel-card-overlay p {
+    display: none !important;
+  }
+  .carousel-card-overlay h3 {
+    display: block !important;
+    font-size: 14.5px;
+    margin: 0;
+    line-height: 1.25;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
   }
   .links-list {
     grid-template-columns: repeat(2, 1fr); /* 2 in a row on tablets and mobile */
