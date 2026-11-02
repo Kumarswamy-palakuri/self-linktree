@@ -73,17 +73,20 @@ const icons={
 function validUrl(s){try{let u=new URL(s);return ["https:","http:"].includes(u.protocol)?u.href:"#"}catch{return "#"}}
 function profileUrl(p){let u=new URL(location.href);u.searchParams.set("p",p.slug);return u.href}
 function avatar(img,fb,p){
-  if(p.avatar){
+  if(!img)return;
+  if(p&&p.avatar&&p.avatar.trim()){
     img.src=p.avatar;
     img.style.display="block";
     if(fb)fb.style.display="none";
+    img.onerror=()=>{
+      img.removeAttribute("src");
+      img.style.display="none";
+      if(fb){fb.textContent=initials(p.name);fb.style.display="grid";}
+    };
   }else{
     img.removeAttribute("src");
     img.style.display="none";
-    if(fb){
-      fb.textContent=initials(p.name);
-      fb.style.display="grid";
-    }
+    if(fb){fb.textContent=initials(p?p.name:"AJ");fb.style.display="grid";}
   }
 }
 function applyTheme(p){
@@ -122,7 +125,7 @@ function renderAdmin(){
   $("nameInput").value=p.name;
   $("bioInput").value=p.bio;
   $("slugInput").value=p.slug;
-  avatar($("adminAvatarPreview"),null,p);
+  avatar($("adminAvatarPreview"),$("adminAvatarFallback"),p);
   $("bgInput").value=p.theme.bg;
   $("cardInput").value=p.theme.card;
   $("textInput").value=p.theme.text;
@@ -202,11 +205,40 @@ $("avatarUpload").onchange=e=>{
   let f=e.target.files?.[0];
   if(!f)return;
   if(!f.type.startsWith("image/"))return toast("Choose an image file");
-  if(f.size>2*1024*1024)return toast("Image must be under 2 MB");
   let r=new FileReader();
-  r.onload=()=>{active().avatar=r.result;persist(true)};
+  r.onload=()=>{
+    let img=new Image();
+    img.onload=()=>{
+      let canvas=document.createElement("canvas");
+      let size=320;
+      canvas.width=size;
+      canvas.height=size;
+      let ctx=canvas.getContext("2d");
+      let minDim=Math.min(img.width,img.height);
+      let sx=(img.width-minDim)/2;
+      let sy=(img.height-minDim)/2;
+      ctx.drawImage(img,sx,sy,minDim,minDim,0,0,size,size);
+      active().avatar=canvas.toDataURL("image/jpeg",0.92);
+      persist(true);
+      toast("Profile photo updated");
+    };
+    img.onerror=()=>{
+      active().avatar=r.result;
+      persist(true);
+      toast("Profile photo updated");
+    };
+    img.src=r.result;
+  };
   r.readAsDataURL(f);
 };
+if($("removeAvatarButton")){
+  $("removeAvatarButton").onclick=()=>{
+    active().avatar="";
+    $("avatarUpload").value="";
+    persist(true);
+    toast("Profile photo removed");
+  };
+}
 $("addLinkButton").onclick=()=>editLink(null);
 $("linkForm").onsubmit=e=>{
   e.preventDefault();

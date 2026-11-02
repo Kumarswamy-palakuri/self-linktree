@@ -23,7 +23,7 @@
 <main id="publicPage" class="profile-shell">
   <div class="profile-header">
     <div class="avatar-wrap">
-      <img id="profileAvatar" alt="Ajay Sir profile photo">
+      <img id="profileAvatar" class="avatar" alt="Ajay Sir profile photo">
       <div id="avatarFallback" class="avatar-fallback">AJ</div>
     </div>
     <h1 id="profileName">Ajay Sir</h1>
@@ -88,11 +88,15 @@
         </div>
         <form id="profileForm" class="panel form-grid">
           <div class="photo-editor">
-            <img id="adminAvatarPreview" alt="Profile preview">
+            <div class="photo-editor-avatar-wrap">
+              <img id="adminAvatarPreview" class="avatar" alt="Profile preview">
+              <div id="adminAvatarFallback" class="avatar-fallback" style="font-size:22px;">AJ</div>
+            </div>
             <div>
               <label class="field-label" for="avatarUpload">Profile photo</label>
               <input type="file" id="avatarUpload" accept="image/*">
-              <small>Square image recommended. Maximum 2 MB.</small>
+              <small>Auto-crops and fits strictly inside the circle.</small>
+              <button type="button" class="btn btn-ghost" id="removeAvatarButton" style="margin-top:8px;padding:5px 12px;font-size:11px;color:#ff9696;border-color:rgba(255,150,150,0.35);">Remove photo</button>
             </div>
           </div>
           <label class="field full">Display name<input id="nameInput" maxlength="60" required></label>
