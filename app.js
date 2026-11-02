@@ -527,14 +527,38 @@ function initCarousel(){
   }
 
   let current=0;
-  function goTo(index){
+  function getWidth(){
+    return container.getBoundingClientRect().width||container.offsetWidth||0;
+  }
+  function goTo(index,withTransition=true){
     if(index<0)index=slides.length-1;
     if(index>=slides.length)index=0;
     current=index;
-    track.style.transform=`translateX(-${current*100}%)`;
+    if(!withTransition){
+      track.style.transition="none";
+    }else{
+      track.style.transition="transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+    }
+    const w=getWidth();
+    if(w>0){
+      track.style.transform=`translateX(-${current*w}px)`;
+    }else{
+      track.style.transform=`translateX(-${current*100}%)`;
+    }
     dots.forEach((d,i)=>d.classList.toggle("active",i===current));
   }
-  goTo(0);
+  goTo(0,false);
+
+  if(!window._carouselResizeBound){
+    window.addEventListener("resize",()=>{
+      const activeTrack=$("carouselTrack");
+      if(activeTrack){
+        const w=getWidth();
+        if(w>0)activeTrack.style.transform=`translateX(-${current*w}px)`;
+      }
+    });
+    window._carouselResizeBound=true;
+  }
 
   function startAuto(){
     stopAuto();
@@ -555,14 +579,63 @@ function initCarousel(){
     };
   });
 
-  let startX=0;
-  track.ontouchstart=e=>{startX=e.touches[0].clientX;stopAuto();};
-  track.ontouchend=e=>{
-    const diff=startX-e.changedTouches[0].clientX;
-    if(Math.abs(diff)>35){
-      if(diff>0)goTo(current+1);
-      else goTo(current-1);
+  let startX=0,startY=0,currentDiff=0,isDragging=false,isHorizontal=false;
+
+  track.ontouchstart=e=>{
+    if(slides.length<=1)return;
+    stopAuto();
+    const touch=e.touches[0];
+    startX=touch.clientX;
+    startY=touch.clientY;
+    currentDiff=0;
+    isDragging=true;
+    isHorizontal=false;
+  };
+
+  track.ontouchmove=e=>{
+    if(!isDragging||slides.length<=1)return;
+    const touch=e.touches[0];
+    const dx=touch.clientX-startX;
+    const dy=touch.clientY-startY;
+
+    if(!isHorizontal){
+      if(Math.abs(dx)>Math.abs(dy)+5){
+        isHorizontal=true;
+      }else if(Math.abs(dy)>Math.abs(dx)+5){
+        isDragging=false;
+        return;
+      }
     }
+
+    if(isHorizontal){
+      if(e.cancelable)e.preventDefault();
+      currentDiff=dx;
+      const w=getWidth();
+      track.style.transition="none";
+      track.style.transform=`translateX(-${(current*w)-dx}px)`;
+    }
+  };
+
+  function finishSwipe(){
+    if(!isDragging)return;
+    isDragging=false;
+    track.style.transition="transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+    const threshold=40;
+    if(currentDiff<-threshold){
+      goTo(current+1);
+    }else if(currentDiff>threshold){
+      goTo(current-1);
+    }else{
+      goTo(current);
+    }
+    startAuto();
+  }
+
+  track.ontouchend=finishSwipe;
+  track.ontouchcancel=()=>{
+    isDragging=false;
+    track.style.transition="transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)";
+    goTo(current);
     startAuto();
   };
 
