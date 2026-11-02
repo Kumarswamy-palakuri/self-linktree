@@ -137,7 +137,7 @@ $("loginForm").onsubmit=async e=>{
     $("loginError").classList.add("hidden");
     showAdmin();
   }catch{
-    if((location.protocol==="file:"||["localhost","127.0.0.1"].includes(location.hostname))&&username==="admin"&&password==="admin123"){
+    if((location.protocol==="file:"||["localhost","127.0.0.1"].includes(location.hostname))&&username==="admin"&&password==="ajay123"){
       adminCredentials=null;
       $("loginDialog").close();
       $("loginError").classList.add("hidden");
